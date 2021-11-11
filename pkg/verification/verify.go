@@ -3,6 +3,7 @@ package verification
 import (
 	"fmt"
 	"io/ioutil"
+	"regexp"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -26,7 +27,8 @@ func VerifyReflectionWithLine(body, payload string) (bool, int) {
 // VerifyReflection is check reflected param for xss and mining
 func VerifyReflection(body, payload string) bool {
 	if strings.Contains(body, payload) {
-		return true
+		matched, _ := regexp.MatchString(fmt.Sprintf(`\"\s*\:\s*\"[^\"\n]*%s`, payload), body)
+		return !matched
 	}
 	return false
 }

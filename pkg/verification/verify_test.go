@@ -64,6 +64,14 @@ func TestVerifyReflection(t *testing.T) {
 			want: true,
 		},
 		{
+			name: "false2",
+			args: args{
+				body:    `": "fuzzdalfox1234`,
+				payload: "dalfox",
+			},
+			want: false,
+		},
+		{
 			name: "false",
 			args: args{
 				body:    "987879788",
